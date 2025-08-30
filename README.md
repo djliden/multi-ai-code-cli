@@ -1,36 +1,27 @@
-# Claude CLI App Template (Typer)
+# 🚀 Claude CLI App Template
 
-A minimal template for building CLI apps with Typer, inspired by the Databricks one-command workflow. It provides an interactive flow to set up your environment and generate product and design docs.
+A minimal template for building Python CLI apps with Typer and Claude.
 
-## Quickstart
+## Quick Start
 
-- Create a virtual env and install:
-  ```bash
-  ./scripts/setup.sh
-  source .venv/bin/activate
-  ```
-- Run checks:
-  ```bash
-  cla check
-  ```
-- Kick off the guided flow:
-  ```bash
-  cla spec
-  ```
+1. **Use this template:**
+   - Click "Use this template" on GitHub to create your new repo
+   - Clone your new repo locally
 
-## Commands
-- `cla init` — Print/setup guidance (calls `./scripts/setup.sh`)
-- `cla check` — Basic environment checks
-- `cla reqs` — Interactive product requirements → `docs/product.md`
-- `cla design` — Interactive technical design → `docs/design.md`
-- `cla spec` — Opinionated end-to-end flow (setup hint → reqs → design)
+2. **Start development with Claude:**
+   ```bash
+   # In Claude Code or Claude Desktop
+   /cli
+   ```
 
-## Structure
-- `src/claude_cli_app/cli.py` — Typer app entrypoint
-- `scripts/` — Setup scripts, dependency checks
-- `docs/` — Generated documentation (requirements/design)
-- `CLAUDE.md` — Development guide for this template
+The `/cli` command handles setup and provides an interactive walkthrough to scope and build your CLI application.
 
-## Notes
-- This repo adapts concepts from `databricks-solutions/claude-databricks-app-template` to a pure CLI context.
-- You can extend `cla dba` to also scaffold project skeletons, plugins, and CI later.
+## What's included
+
+- 🔧 **Typer** - Modern CLI framework  
+- 🎨 **Rich** - Beautiful terminal output
+- ⚡ **uv** - Fast Python package management
+- 📁 **Project structure** - Organized and ready to extend
+- 🛠️ **Development tools** - Linting, formatting with Ruff
+
+Built with inspiration from [claude-databricks-app-template](https://github.com/databricks-solutions/claude-databricks-app-template).

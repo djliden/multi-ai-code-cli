@@ -119,15 +119,42 @@ I'll create a detailed implementation plan breaking development into phases:
 5. **Advanced Features** - Secondary functionality
 6. **Testing & Documentation** - Comprehensive testing and docs
 
-### Development Workflow
+### Development Workflow - One File Per Command
 
-I'll set up the development structure:
+This template follows Typer's **one-file-per-command** approach for better organization:
 
-```bash
-mkdir -p src/cli/{commands,core,utils}
-mkdir -p tests/{unit,integration,cli}
-mkdir -p docs/{work,done}
+**Project Architecture:**
 ```
+src/
+├── cli/              # CLI interface layer only
+│   ├── cli.py        # Main CLI app and command registration
+│   └── commands/     # Individual command implementations
+│       ├── __init__.py
+│       ├── hello.py  # Thin CLI wrapper - calls src.core functions
+│       └── mycommand.py
+├── core/             # Core business logic and application services
+├── models/           # Data models, schemas, domain objects
+├── services/         # Database management, external APIs, AI agents
+└── utils/            # Shared utility functions
+
+tests/
+├── test_hello.py     # CLI command tests
+├── test_mycommand.py
+├── test_core/        # Core business logic tests
+└── test_models/      # Data model tests
+```
+
+**Key Principle:** CLI commands should be **thin interface layers** that:
+- Parse arguments and handle user interaction
+- Call functions from `src.core`, `src.models`, `src.services`
+- Format and display results
+- Handle CLI-specific errors and help text
+
+**Adding New Commands:**
+1. Create `src/cli/commands/mycommand.py` with command function
+2. Import and register in `src/cli/cli.py`
+3. Create `tests/test_mycommand.py` with comprehensive tests
+4. Run `./app_status.sh` to verify test coverage
 
 ### Development Commands
 
@@ -140,13 +167,25 @@ uv add [package-name]
 # Run the CLI
 uv run python app.py [command] [options]
 
-# Run tests  
-uv run python -m pytest tests/ -v
+# Run all tests
+./scripts/test.sh
+
+# Run specific command tests
+uv run pytest tests/test_mycommand.py -v
+
+# Check status and test coverage
+./app_status.sh
 
 # Code quality
 uv run ruff check src/
 uv run ruff format src/
 ```
+
+**Automated Testing Approach:**
+- Each command file should have a corresponding test file
+- Status script warns about missing test files (without running slow tests)
+- Use `CliRunner` for testing CLI interactions
+- Test both success cases and error handling
 
 **✅ Step 4 Complete** when your CLI application is fully implemented and tested.
 

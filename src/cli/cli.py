@@ -1,21 +1,13 @@
 import typer
-from rich.console import Console
+
+from .commands.hello import hello
+from .commands.goodbye import goodbye
 
 app = typer.Typer()
-console = Console()
 
-@app.command()
-def hello(name: str):
-    """Say hello to NAME"""
-    console.print(f"Hello {name}")
+# Register commands
+app.command()(hello)
+app.command()(goodbye)
 
-@app.command()
-def goodbye(name: str, formal: bool = False):
-    """Say goodbye to NAME"""
-    if formal:
-        console.print(f"Goodbye {name}. It was a pleasure.")
-    else:
-        console.print(f"Bye {name}!")
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app()

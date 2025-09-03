@@ -152,6 +152,45 @@ else
     echo -e "${PENDING} ${YELLOW}CLI not testable (environment not set up)${NC}"
 fi
 
+# Test Coverage Analysis
+echo -e "\n${BLUE}Test Coverage${NC}"
+if $STEP1_COMPLETE; then
+    # Check for command files
+    COMMAND_FILES=$(find src/cli/commands -name "*.py" -not -name "__init__.py" 2>/dev/null | wc -l || echo 0)
+    TEST_FILES=$(find tests/ -name "test_*.py" 2>/dev/null | wc -l || echo 0)
+    
+    if [ "$COMMAND_FILES" -eq 0 ]; then
+        echo -e "${PENDING} ${YELLOW}No command files found${NC}"
+        echo "  Commands should be in src/cli/commands/"
+    else
+        # Check for missing test files
+        MISSING_TESTS=()
+        for cmd_file in src/cli/commands/*.py; do
+            if [ -f "$cmd_file" ] && [ "$(basename "$cmd_file")" != "__init__.py" ]; then
+                cmd_name=$(basename "$cmd_file" .py)
+                test_file="tests/test_${cmd_name}.py"
+                if [ ! -f "$test_file" ]; then
+                    MISSING_TESTS+=("$cmd_name")
+                fi
+            fi
+        done
+        
+        if [ ${#MISSING_TESTS[@]} -eq 0 ]; then
+            echo -e "${CHECK_MARK} ${GREEN}All commands have test files${NC}"
+        else
+            echo -e "${IN_PROGRESS} ${YELLOW}Missing test files for: ${MISSING_TESTS[*]}${NC}"
+        fi
+        
+        if [ "$VERBOSE" = true ]; then
+            echo "  • Command files: $COMMAND_FILES"
+            echo "  • Test files: $TEST_FILES"
+            echo "  • Run tests with: ./scripts/test.sh"
+        fi
+    fi
+else
+    echo -e "${PENDING} ${YELLOW}Test analysis not available (environment not set up)${NC}"
+fi
+
 # Overall Status Summary
 echo -e "\n${BLUE}Overall Progress${NC}"
 echo "================="

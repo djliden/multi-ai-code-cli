@@ -1,4 +1,4 @@
-# 🚀 Claude CLI App Template
+# Claude CLI App Template
 
 A minimal template for building Python CLI apps with Typer and Claude.
 
@@ -10,7 +10,7 @@ A minimal template for building Python CLI apps with Typer and Claude.
 
 2. **Start development with Claude:**
    ```bash
-   # In Claude Code or Claude Desktop
+   # In Claude Code
    /cli
    ```
 

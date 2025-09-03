@@ -6,21 +6,63 @@ This is a template for building Typer CLI applications with the help of Claude.
 
 ## Tech Stack
 
-- Python with `uv` for package management
-- Typer for the CLI framework
-- Ruff for linting and formatting
+**Core Framework:**
+- **Python 3.8+** - Modern Python with type hints
+- **Typer** - CLI framework with automatic help generation
+- **Pydantic v2** - Data validation, settings, and configuration management
+- **Rich** - Rich text and beautiful formatting for CLI output
+- **uv** - Fast Python package manager and project management
+
+**Development Tools:**
+- **Pytest** - Testing framework with CliRunner for CLI testing
+- **Ruff** - Lightning-fast Python linter and formatter
+- **Pre-commit** - Git hooks for code quality (optional)
+
+**Common Integrations:**
+- **httpx** - Modern async HTTP client for API integrations  
+- **SQLite/PostgreSQL** - Database integration via `src/services/`
+- **aiofiles** - Async file operations
+- **structlog** - Structured logging for better debugging
 
 ## Development Workflow
 
 ### Package Management
-- Use `uv add/remove` for Python dependencies.
-- Edit `pyproject.toml` to manage your dependencies.
+**🚨 CRITICAL: Always use `uv` for dependency management**
+- `uv add package-name` - Add production dependency
+- `uv add --dev package-name` - Add development dependency  
+- `uv remove package-name` - Remove dependency
+- `uv sync` - Install all dependencies from lock file
+- **NEVER** manually edit `pyproject.toml` dependencies - always use `uv add`
 
-### Development Commands
-- `./scripts/setup.sh` - Interactive environment setup and dependency installation
-- `uv run python app.py --help` - Test the CLI application  
-- `./scripts/test.sh` - Run the test suite
-- `./app_status.sh` - Check project status and test coverage
+### Core Development Commands
+```bash
+# Environment Setup
+./scripts/setup.sh                    # Interactive environment setup
+uv sync                               # Sync dependencies
+
+# CLI Development  
+uv run python app.py --help           # Test CLI functionality
+uv run python app.py [command]        # Run specific command
+./app_status.sh                       # Check project status quickly
+./app_status.sh -v                    # Verbose status with details
+
+# Testing & Quality
+./scripts/test.sh                     # Run full test suite
+uv run pytest tests/test_hello.py -v  # Run specific command tests
+uv run ruff check src/               # Lint code
+uv run ruff format src/              # Format code
+
+# Development Iteration
+uv run python app.py [cmd] [args]     # Quick CLI testing
+./app_status.sh                       # Fast status check (no slow tests)
+```
+
+### 🚨 CRITICAL: Development Rules
+1. **CLI Testing**: Always test commands via `uv run python app.py` before committing
+2. **Test Coverage**: Every command file MUST have a corresponding test file
+3. **Status Checks**: Run `./app_status.sh` frequently to catch missing tests
+4. **Dependencies**: Only add dependencies via `uv add` - never manual pyproject.toml edits
+5. **Code Quality**: Format with `uv run ruff format` before committing
 
 ## CLI Structure
 
@@ -104,3 +146,45 @@ Claude understands natural language commands for common development tasks:
   → Creates `src/cli/commands/list.py` and `tests/test_list.py`
 - "Add a --verbose flag to the list command"
 - "Test the list command with different directory arguments"
+
+## Modern Python CLI Development
+
+### Modern Configuration with Pydantic
+```python
+# src/models/config.py
+from pydantic import BaseModel, Field
+from pathlib import Path
+
+class AppConfig(BaseModel):
+    """App config with validation and env var support."""
+    data_dir: Path = Field(default_factory=lambda: Path.home() / ".myapp")
+    api_key: str = Field(default="", env="MY_APP_API_KEY")
+    debug: bool = Field(default=False, env="DEBUG")
+    max_retries: int = Field(default=3, ge=0, le=10)
+```
+
+### Async Operations & Type Safety
+```python
+# Modern async CLI command with full type hints
+from typing import Annotated
+import asyncio
+import httpx
+from enum import Enum
+
+class OutputFormat(str, Enum):
+    json = "json"
+    yaml = "yaml"
+
+async def fetch_data(url: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        return response.json()
+
+def fetch_command(
+    url: Annotated[str, typer.Argument(help="API URL to fetch")],
+    format: OutputFormat = OutputFormat.json
+):
+    """Fetch data asynchronously with type safety."""
+    result = asyncio.run(fetch_data(url))
+    console.print(f"✅ Fetched data in {format.value} format")
+```

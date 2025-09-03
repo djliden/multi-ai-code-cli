@@ -191,6 +191,20 @@ uv run ruff format src/
 
 ---
 
+## Typer Reference Documentation
+
+For detailed Typer patterns and syntax, refer to the comprehensive guides:
+- `docs/typer-reference.md` - Complete quick reference with code examples
+- `docs/typer-urls.md` - Documentation navigation and search strategies
+
+**Quick Access URLs:**
+- **Getting Started**: https://typer.tiangolo.com/tutorial/first-steps/
+- **One File Per Command**: https://typer.tiangolo.com/tutorial/one-file-per-command/  
+- **Testing**: https://typer.tiangolo.com/tutorial/testing/
+- **Parameter Types**: https://typer.tiangolo.com/tutorial/parameter-types/
+
+---
+
 ## Development Philosophy
 
 I follow an **additive development approach**:

@@ -16,6 +16,13 @@ A minimal template for building Python CLI apps with Typer and Claude.
 
 The `/cli` command handles setup and provides an interactive walkthrough to scope and build your CLI application.
 
+## For Claude: Reference Documentation
+
+When developing with this template, refer to the comprehensive guides in the `docs/` directory:
+- **`docs/typer-reference.md`** - Complete Typer patterns and syntax reference
+- **`docs/typer-urls.md`** - Documentation navigation and search strategies
+- **`CLAUDE.md`** - Project context and development workflow
+
 ## What's included
 
 - 🔧 **Typer** - Modern CLI framework  

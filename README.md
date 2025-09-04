@@ -29,6 +29,10 @@ Use the `/docs` command to create focused reference documentation for new librar
 ```bash
 /docs https://docs.pydantic.dev    # Creates pydantic-reference.md and pydantic-urls.md
 /docs https://rich.readthedocs.io  # Creates rich-reference.md and rich-urls.md
+
+# Add specific instructions for focused documentation
+/docs https://mlflow.org/docs/latest please focus on mlflow tracing
+/docs https://docs.pydantic.dev I need validators and custom field types
 ```
 
 This creates Claude-friendly references following the naming convention:

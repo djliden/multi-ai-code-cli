@@ -4,7 +4,9 @@ description: "Generate focused reference documentation for Claude to use in this
 
 # Documentation Processor for Claude
 
-I'll analyze **$1** and create focused reference documentation specifically for Claude to use effectively in this project context.
+I'll analyze the documentation and create focused reference documentation specifically for Claude to use effectively in this project context.
+
+**Request:** $ARGUMENTS
 
 ## Purpose
 
@@ -17,7 +19,7 @@ This creates practical reference docs that help Claude:
 ## Process
 
 ### 1. Content Analysis
-I'll examine **$1** to understand:
+I'll examine the provided URL to understand:
 - What technology/service this documents
 - How it relates to Python CLI development
 - Key concepts Claude needs to know
@@ -45,4 +47,4 @@ If the URL contains non-documentation content (novels, irrelevant text), I'll co
 
 ---
 
-Ready to analyze **$1** and create Claude-focused reference documentation.
+Ready to analyze your documentation request and create Claude-focused reference documentation.

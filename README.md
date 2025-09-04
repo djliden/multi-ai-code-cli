@@ -19,16 +19,28 @@ The `/cli` command handles setup and provides an interactive walkthrough to scop
 ## For Claude: Reference Documentation
 
 When developing with this template, refer to the comprehensive guides in the `docs/` directory:
-- **`docs/typer-reference.md`** - Complete Typer patterns and syntax reference
-- **`docs/typer-urls.md`** - Documentation navigation and search strategies
-- **`CLAUDE.md`** - Project context and development workflow
+- **`docs/typer-reference.md`**: Complete Typer patterns and syntax reference
+- **`docs/typer-urls.md`**: Documentation navigation and search strategies
+- **`CLAUDE.md`**: Project context and development workflow
+
+### Adding New Documentation
+
+Use the `/docs` command to create focused reference documentation for new libraries:
+```bash
+/docs https://docs.pydantic.dev    # Creates pydantic-reference.md and pydantic-urls.md
+/docs https://rich.readthedocs.io  # Creates rich-reference.md and rich-urls.md
+```
+
+This creates Claude-friendly references following the naming convention:
+- `{library}-reference.md`: Essential concepts and code examples
+- `{library}-urls.md`: Navigation guide for official documentation
 
 ## What's included
 
-- 🔧 **Typer** - Modern CLI framework  
-- 🎨 **Rich** - Beautiful terminal output
-- ⚡ **uv** - Fast Python package management
-- 📁 **Project structure** - Organized and ready to extend
-- 🛠️ **Development tools** - Linting, formatting with Ruff
+- 🔧 **Typer**: Modern CLI framework
+- 🎨 **Rich**: Beautiful terminal output
+- ⚡ **uv**: Fast Python package management
+- 📁 **Project structure**: Organized and ready to extend
+- 🛠️ **Development tools**: Linting, formatting with Ruff
 
 Built with inspiration from [claude-databricks-app-template](https://github.com/databricks-solutions/claude-databricks-app-template).

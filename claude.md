@@ -147,6 +147,27 @@ Claude understands natural language commands for common development tasks:
 - "Add a --verbose flag to the list command"
 - "Test the list command with different directory arguments"
 
+## Reference Documentation
+
+For quick access to framework and library information, this project maintains focused reference docs in `/docs/`:
+
+### Existing References
+- `typer-reference.md` - Complete Typer CLI patterns and syntax  
+- `typer-urls.md` - Official Typer documentation navigation
+
+### Documentation Naming Convention
+- `{library}-reference.md` - Claude's quick reference with essential concepts and code examples
+- `{library}-urls.md` - Navigation guide with links to official docs and search strategies
+
+### Adding New Documentation
+Use the `/docs` command to create focused reference documentation:
+```bash
+/docs https://docs.pydantic.dev    # Creates pydantic-reference.md and pydantic-urls.md
+/docs https://rich.readthedocs.io  # Creates rich-reference.md and rich-urls.md
+```
+
+The command analyzes documentation and creates Claude-friendly references tailored to this project's Python CLI development context.
+
 ## Modern Python CLI Development
 
 ### Modern Configuration with Pydantic

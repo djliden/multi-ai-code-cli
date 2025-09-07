@@ -1,166 +1,89 @@
-# Gemini CLI Reference for aiproj
+# Gemini CLI Reference
 
-Essential configuration reference for setting up Gemini CLI within the `aiproj` multi-AI setup tool.
+Quick reference for Google Gemini CLI capabilities and syntax.
 
-## Core Configuration Files
+## Core Concepts
 
-### 1. Context File: `GEMINI.md`
-**Purpose**: Project context and instructions (equivalent to `CLAUDE.md` for Claude Code)
-**Location**: Project root directory
+**Gemini CLI** - Google's official CLI for Gemini AI models
+**GEMINI.md** - Project context file (analogous to CLAUDE.md)
+**Custom Commands** - TOML-based slash commands  
+**.geminiignore** - Files to exclude from context
 
-**Example Structure:**
-```markdown
-# Project Context for Gemini CLI
+## Basic Usage
 
-## Project Overview
-[Brief description of your project and its goals]
+```bash
+# Interactive mode
+gemini
 
-## Tech Stack
-- Python 3.8+ with Typer CLI framework
-- [Other relevant technologies]
+# Direct prompt
+gemini -p "explain this code"
 
-## Development Workflow
-- [Key development patterns]
-- [Testing approach]
-- [Code review process]
+# Include directories
+gemini --include-directories src,tests
 
-## Custom Commands Available
-- `/docs` - Generate documentation
-- `/test` - Create and run tests
-- `/review` - Perform code review
-- `/refactor` - Improve code structure
-
-## Important Notes
-[Any project-specific guidance for AI assistance]
+# Non-interactive mode
+gemini -p "task" --no-input
 ```
 
-### 2. Project Configuration: `.geminiignore`
-**Purpose**: Define which files/directories to include/exclude from context
-**Format**: Similar to `.gitignore`
+## Authentication Options
 
-**Example:**
-```gitignore
-# Build artifacts
-/dist/
-/build/
+```bash
+# OAuth flow (recommended)
+gemini auth login
+
+# API key
+export GOOGLE_API_KEY="your-key"
+
+# Vertex AI (GCP projects)
+gemini auth vertex-ai
+```
+
+## Configuration Files
+
+**GEMINI.md** - Project instructions
+```markdown
+# Project Context
+This is a Python CLI project using Typer and pytest.
+```
+
+**Custom Commands** - `.toml` files in project root:
+```toml
+[command.review]
+description = "Code review assistant"
+prompt = "Review this code for bugs and improvements"
+```
+
+## Model Selection
+
+```bash
+# Default (gemini-1.5-flash)
+gemini -p "task"
+
+# Specific model
+gemini -m gemini-1.5-pro -p "complex task"
+```
+
+## Directory Inclusion
+
+```bash
+# Include specific directories
+gemini --include-directories src,docs -p "analyze structure"
+
+# Exclude with .geminiignore
+# Similar to .gitignore syntax
 *.pyc
 __pycache__/
-
-# Dependencies
-node_modules/
-venv/
-
-# Include important files
-!README.md
-!pyproject.toml
+.env
 ```
 
-## Custom Slash Commands
+## Common Patterns
 
-### Directory Structure
-```
-.gemini/
-└── commands/
-    ├── docs.toml
-    ├── test.toml
-    ├── review.toml
-    └── git/
-        └── commit.toml    # Creates /git:commit command
-```
+**Project Setup:**
+1. Create GEMINI.md for context
+2. Set up .geminiignore for file filtering
+3. Configure custom .toml commands for workflows
 
-### Command Format (TOML)
-**Required fields:**
-- `prompt` - The prompt template
-
-**Optional fields:**
-- `description` - Command description for help
-
-### Example Commands
-
-**Documentation Command** (`.gemini/commands/docs.toml`):
-```toml
-description = "Generate comprehensive documentation"
-prompt = """
-Generate documentation for this codebase focusing on:
-- API documentation
-- Usage examples  
-- Implementation details
-
-{{args}}
-"""
-```
-
-**Code Review Command** (`.gemini/commands/review.toml`):
-```toml
-description = "Perform thorough code review"
-prompt = """
-Review the following code for:
-- Code quality and best practices
-- Security issues
-- Performance concerns
-- Documentation completeness
-
-{{args}}
-"""
-```
-
-**Testing Command** (`.gemini/commands/test.toml`):
-```toml
-description = "Generate comprehensive tests"
-prompt = """
-Generate tests for the specified code including:
-- Unit tests
-- Integration tests
-- Edge cases
-- Proper mocking
-
-{{args}}
-"""
-```
-
-**Refactoring Command** (`.gemini/commands/refactor.toml`):
-```toml
-description = "Refactor code for better maintainability" 
-prompt = """
-Refactor this code to improve:
-- Code structure and readability
-- Performance
-- Maintainability
-- Follow best practices
-
-{{args}}
-"""
-```
-
-## Argument Handling
-
-**Direct injection with `{{args}}`:**
-```toml
-prompt = "Review this code: {{args}}"
-```
-
-**Default behavior (no `{{args}}`):**
-- Arguments are appended to the end of the prompt
-
-## Advanced Features
-
-**Shell command execution:**
-```toml
-prompt = """
-Generate a commit message for these changes:
-
-```diff
-!{git diff --staged}
-```
-"""
-```
-
-**File content injection:**
-```toml
-prompt = """
-Review the following file:
-@{src/main.py}
-
-{{args}}
-"""
-```
+**Development Use:**
+- Interactive mode for exploration
+- `--include-directories` for focused analysis
+- Custom commands for repeated tasks

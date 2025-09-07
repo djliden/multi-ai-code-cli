@@ -1,24 +1,89 @@
-# OpenAI Codex Reference
+# OpenAI Codex CLI Reference
 
-Essential reference for OpenAI Codex integration in the aiproj CLI template.
+Quick reference for OpenAI Codex CLI capabilities and syntax.
 
-## Configuration Files
+## Core Concepts
 
-**Instructions File:** `AGENTS.md` (equivalent to Claude's `CLAUDE.md`)
+**Codex CLI** - OpenAI's CLI tool for AI-assisted coding
+**AGENTS.md** - Agent configuration file
+**Custom Prompts** - Markdown files in `~/.codex/prompts/` (and possibly `.codex/prompts/`)
+**TUI Mode** - Interactive text interface
 
-**Location Priority:**
-1. `~/.codex/AGENTS.md` - Global personal guidance
-2. `AGENTS.md` at repo root - Project-specific notes  
-3. `AGENTS.md` in current directory - Sub-folder specifics
+## Basic Usage
 
-## Custom Slash Commands
+```bash
+# Interactive mode (TUI)
+codex
 
-**Location:** `~/.codex/prompts/`
-- Create `.md` files in this directory
-- Each file becomes a custom slash command
-- File name = command name (e.g., `test.md` → `/test`)
+# Interactive with initial prompt
+codex "fix lint errors"
+
+# Non-interactive execution
+codex exec "explain utils.ts"
+
+# With model selection
+codex -m gpt-4 "refactor this code"
+
+# Request approval before changes
+codex --ask-for-approval "modify database schema"
+```
+
+## File Operations
+
+```bash
+# Change working directory
+codex --cd /path/to/project
+
+# Include image input
+codex -i screenshot.png "explain this UI"
+```
+
+## Custom Prompts
+
+Create `.md` files in prompt directories:
+
+**Global prompts:** `~/.codex/prompts/`
+**Project prompts:** `.codex/prompts/` *(unconfirmed - may be supported)*
+
+**Example: `~/.codex/prompts/python-debug.md`**
+```markdown
+Debug this Python code. Check for:
+- Logic errors
+- Performance issues
+- Missing error handling
+- Type safety problems
+```
 
 **Usage:**
-1. Launch `codex` (TUI mode)
-2. Type `/` to see available commands
-3. Select custom command from popup
+1. Run `codex` (interactive mode)
+2. Type `/` to see slash commands
+3. Select your custom prompt from the list
+4. Custom prompt content is submitted automatically
+
+## Configuration
+
+**AGENTS.md** - Project context:
+```markdown
+# Project Instructions
+Python FastAPI project
+Use type hints and async/await
+Test with pytest
+```
+
+## Special Features
+
+**File Search:** Use `@` trigger in TUI to search files
+**Shell Completions:** Available for bash/zsh/fish
+**Approval Mode:** `--ask-for-approval` for safety
+
+## Common Patterns
+
+**Setup:**
+1. Create AGENTS.md for project context
+2. Add custom prompts to `~/.codex/prompts/` (or `.codex/prompts/`)
+3. Use interactive mode for exploration
+
+**Workflows:**
+- `codex exec` for automated tasks
+- Custom prompts for repeated workflows
+- File search with `@` for quick navigation

@@ -58,13 +58,22 @@ fi
 # Step 1: Environment Setup
 echo -e "\n${BLUE}Step 1: Environment Setup${NC}"
 if command -v uv >/dev/null 2>&1 && [ -f "uv.lock" ]; then
-    echo -e "${CHECK_MARK} ${GREEN}Environment setup complete${NC}"
-    STEP1_COMPLETE=true
+    echo -e "${CHECK_MARK} ${GREEN}Environment detected, syncing dependencies...${NC}"
+    
+    # Run uv sync to ensure dependencies are installed
+    if uv sync >/dev/null 2>&1; then
+        echo -e "${CHECK_MARK} ${GREEN}Environment setup complete${NC}"
+        STEP1_COMPLETE=true
+    else
+        echo -e "${ERROR} ${RED}Failed to sync dependencies${NC}"
+        echo "  Try running: uv sync"
+        STEP1_COMPLETE=false
+    fi
     
     if [ "$VERBOSE" = true ]; then
         echo "  • uv version: $(uv --version)"
         echo "  • Python version: $(uv run python --version 2>/dev/null || echo 'Not available')"
-        echo "  • Dependencies installed: $([ -f "uv.lock" ] && echo "Yes" || echo "No")"
+        echo "  • Dependencies synced: $([ $STEP1_COMPLETE = true ] && echo "Yes" || echo "No")"
     fi
 else
     echo -e "${IN_PROGRESS} ${YELLOW}Environment setup needed${NC}"
@@ -117,17 +126,21 @@ fi
 
 # Step 4: Implementation
 echo -e "\n${BLUE}Step 4: Implementation${NC}"
-if [ -d "src/cli/commands" ] || [ -f "docs/implementation.md" ]; then
-    echo -e "${CHECK_MARK} ${GREEN}Implementation in progress${NC}"
-    STEP4_COMPLETE=true
+if [ -d "src/cli/commands" ]; then
+    # Count non-template command files (exclude hello.py and goodbye.py)
+    CUSTOM_COMMANDS=$(find src/cli/commands -name "*.py" -not -name "__init__.py" -not -name "hello.py" -not -name "goodbye.py" 2>/dev/null | wc -l || echo 0)
     
-    if [ "$VERBOSE" = true ]; then
-        if [ -d "src/cli/commands" ]; then
-            echo "  • Command modules: $(find src/cli/commands -name "*.py" 2>/dev/null | wc -l || echo 0)"
+    if [ "$CUSTOM_COMMANDS" -gt 0 ]; then
+        echo -e "${CHECK_MARK} ${GREEN}Implementation in progress${NC}"
+        STEP4_COMPLETE=true
+        
+        if [ "$VERBOSE" = true ]; then
+            echo "  • Custom command modules: $CUSTOM_COMMANDS"
+            echo "  • Total command modules: $(find src/cli/commands -name "*.py" -not -name "__init__.py" 2>/dev/null | wc -l || echo 0)"
         fi
-        if [ -f "docs/implementation.md" ]; then
-            echo "  • Implementation plan exists"
-        fi
+    else
+        echo -e "${PENDING} ${YELLOW}Implementation not started (only template commands exist)${NC}"
+        STEP4_COMPLETE=false
     fi
 else
     echo -e "${PENDING} ${YELLOW}Implementation not started${NC}"

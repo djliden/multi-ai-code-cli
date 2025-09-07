@@ -23,6 +23,7 @@ I'll examine the provided URL to understand:
 - What technology/service this documents
 - How it relates to Python CLI development
 - Key concepts Claude needs to know
+- **IMPORTANT**: Review existing design and product docs to understand what this library will actually be used for
 
 ### 2. Smart Scoping
 **For smaller docs**: Extract the most relevant patterns and examples
@@ -35,11 +36,31 @@ I'll generate two complementary files in `/docs/`:
 - Essential concepts for this project context
 - Common usage patterns and code examples
 - Project-relevant gotchas and best practices
+- **KEEP SHORT AND FOCUSED** - This is a quick reference, not a tutorial
+- **NO PROJECT-SPECIFIC IMPLEMENTATIONS** - Focus on library capabilities only
+- **MINIMAL EXAMPLES** - Brief syntax examples only, not full implementations
 
 **`{library}-urls.md`** - Navigation guide:
 - Key sections of the official documentation
 - Direct links to frequently needed pages
 - Search strategies and where to find specific topics
+
+### 🚨 CRITICAL Documentation Guidelines
+
+**Scope Control:**
+- **Review design/product docs first** to understand intended library usage
+- **Keep documentation concise** - These are quick references, not comprehensive guides
+- **Library features only** - NO project-specific strategies, implementations, or architectural decisions
+- **Minimal examples** - Brief syntax demonstrations, not full code samples
+
+**Content Restrictions:**
+- ❌ **NO** project-specific implementations or business logic
+- ❌ **NO** detailed tutorials or walkthroughs  
+- ❌ **NO** architectural recommendations or design patterns
+- ❌ **NO** extensive code examples or full implementations
+- ✅ **YES** Core library concepts and syntax
+- ✅ **YES** Common usage patterns (generic, not project-specific)
+- ✅ **YES** Navigation aids for official documentation
 
 ## Security & Content Safeguards
 

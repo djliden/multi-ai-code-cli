@@ -108,10 +108,33 @@ I'll create a comprehensive technical design document based on our discussion.
 
 ## Step 4: Implementation Planning & Development
 
-**Check if in progress:** The status script checks if `src/cli/commands/` exists or `docs/implementation.md` has been created.
+**Check if in progress:** The status script checks if custom commands (beyond the template examples) exist in `src/cli/commands/`.
 
-I'll create a detailed implementation plan breaking development into phases:
+Based on the product requirements and technical architecture from previous steps, I'll:
 
+1. **Summarize the scope** - Review what we're building, key commands, and technical decisions
+2. **Present the implementation plan** - Break development into logical phases with clear deliverables
+3. **Confirm the plan** - Get your approval before writing any code
+
+### Implementation Planning Process
+
+**Phase 1: Scope Summary & Design Review**
+- Review product requirements and technical architecture decisions
+- Confirm command structure, data models, and integration points
+- Identify any missing requirements or technical concerns
+
+**Phase 2: Implementation Plan Presentation**
+- Break development into logical phases with clear deliverables
+- Define success criteria for each phase
+- Estimate development order and dependencies
+
+**Phase 3: Plan Approval**
+- Present complete implementation roadmap
+- Get your confirmation before proceeding
+- Adjust plan based on your feedback
+
+**Phase 4: Development Execution**
+Once approved, development phases typically include:
 1. **Core CLI Structure** - Basic command structure and argument parsing
 2. **Configuration System** - Settings and preferences management  
 3. **Primary Commands** - Main functionality implementation

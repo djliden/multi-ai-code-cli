@@ -20,8 +20,18 @@ The primary task is to adapt the `claude-databricks-app-template` (https://githu
 
 ## File Guide
 
-*   **`claude.md` (this file):** Meta-instructions for developing the template itself.
-*   **`claude_template.md`:** The template for the `CLAUDE.md` file that will be included in the *generated* projects. This file should guide the end-user in developing their CLI application.
+*   **`claude_dev.md` (this file):** Meta-instructions for developing the template itself.
+*   **`CLAUDE.md`:** Main user instructions for developing CLI applications with this template.
 *   **`.claude/commands/cli.md`:** The main interactive command for creating and managing a new CLI application. This should be heavily inspired by the `dba.md` command from the original template.
+
+## Current Project Documentation
+
+The template is now being used to develop a specific CLI application called **aiproj**:
+
+*   **`docs/product.md`:** Complete product requirements for the aiproj CLI tool - a multi-AI project configuration manager
+*   **`docs/design.md`:** Detailed technical architecture including provider abstraction, command structure, and implementation details
+*   **`docs/todos.md`:** Task tracking for the aiproj implementation
+
+The aiproj project serves as both the first real implementation using this template and a validation of the template's effectiveness for building complex CLI applications.
 
 Remember to frequently refer to the `claude-databricks-app-template` repository for inspiration and guidance.

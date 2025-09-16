@@ -1,4 +1,5 @@
 # Product Requirements Document
+o
 
 ## Multi-AI Code Template CLI
 

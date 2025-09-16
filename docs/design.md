@@ -21,23 +21,38 @@ A CLI tool focused on setting up and managing **custom commands and prompts** fo
 aiproj init                    # Detect existing + guided setup
 aiproj add                     # Add providers to existing project
 
-# Non-interactive mode  
+# Non-interactive mode
 aiproj init --claude --gemini --codex    # Generate all three
 aiproj init --claude --force             # Force overwrite existing
 aiproj add --gemini --editor             # Add Gemini + open editor
 
+# Granular component control
+aiproj add claude --config               # Only CLAUDE.md
+aiproj add claude --commands             # Only .claude/commands/ templates
+aiproj add claude --prompts              # Only .claude/prompts/ templates
+aiproj add claude --agents               # Only agents.md
+aiproj add claude --all                  # Everything (default)
+aiproj init --claude-commands            # Init project with only Claude commands
+
 # Management commands
-aiproj list                    # Show configured providers
-aiproj clean [--provider]     # Remove provider configs
+aiproj list                              # Show configured providers and components
+aiproj clean [--provider] [--component] # Remove provider configs or specific components
 ```
 
 #### Provider Flags
-- `--claude` - Set up Claude Code commands/prompts
-- `--gemini` - Set up Gemini CLI commands/prompts  
-- `--codex` - Set up OpenAI Codex commands/prompts
+- `--claude` - Set up Claude Code (all components by default)
+- `--gemini` - Set up Gemini CLI (all components by default)
+- `--codex` - Set up OpenAI Codex (all components by default)
 - `--force` - Overwrite existing configs
 - `--editor` - Open config files in editor after generation
 - `--no-editor` - Skip editor opening
+
+#### Component Flags (per provider)
+- `--config` - Main configuration file only (CLAUDE.md, .gemini, .codex)
+- `--commands` - Custom commands directory only
+- `--prompts` - Prompts/templates directory only
+- `--agents` - Agents configuration only
+- `--all` - All components (default when no component flags specified)
 
 ### Project Structure Generated
 
@@ -133,23 +148,34 @@ templates/
 
 #### `aiproj init` Flow
 ```
-1. Detect existing configs (CLAUDE.md, .gemini/, .codex/)
-2. If found: "Found Claude setup. Add others? [gemini,codex]"  
+1. Detect existing configs (CLAUDE.md, .claude/, .gemini/, .codex/)
+2. If found: "Found Claude config and 3 commands. Add others? [gemini,codex]"
 3. If none found: "Which providers? [claude,gemini,codex]"
-4. Generate directory structure for selected providers
-5. Populate with starter command/prompt templates
+4. Generate directory structure for selected providers/components
+5. Populate with starter templates (respecting component flags)
 6. Open main config files in editor (unless --no-editor)
-7. Summary: "Generated configs for: claude, gemini"
+7. Summary: "Generated: claude/config, claude/commands, gemini/all"
 ```
 
 #### `aiproj add` Flow
 ```
-1. Detect existing project structure
-2. Show already configured providers
-3. Prompt for additional providers to add
-4. Generate new provider configurations  
+1. Detect existing project structure per provider
+2. Show current status: "Claude: config✓ commands✓(3) prompts✗ agents✗"
+3. Prompt for providers and missing components to add
+4. Generate only requested new configurations
 5. Open new config files in editor
 6. Update project metadata
+```
+
+#### Smart Detection Logic
+```
+For each provider:
+1. Check main config file exists
+2. Count existing commands in commands/ directory
+3. Count existing prompts in prompts/ directory
+4. Check for agents.md or equivalent
+5. Report status: "claude: config✓ commands✓(5) prompts✗ agents✓"
+6. Offer to add missing components or migrate content to other providers
 ```
 
 ### Provider Interface Design
@@ -183,12 +209,16 @@ class Provider(ABC):
         """Check if provider is already configured."""
     
     @abstractmethod
-    def generate_config(self, project_dir: Path) -> Dict[str, str]:
-        """Generate config files. Returns {filepath: content}."""
-    
+    def generate_config(self, project_dir: Path, components: List[str] = None) -> Dict[str, str]:
+        """Generate config files for specified components. Returns {filepath: content}."""
+
     @abstractmethod
-    def get_editor_files(self) -> List[str]:
-        """Files to open in editor after generation."""
+    def get_existing_components(self, project_dir: Path) -> Dict[str, Any]:
+        """Get status of existing components (config, commands count, prompts count, agents)."""
+
+    @abstractmethod
+    def get_editor_files(self, components: List[str] = None) -> List[str]:
+        """Files to open in editor after generation for specified components."""
 ```
 
 ### Configuration Management

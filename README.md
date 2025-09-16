@@ -1,50 +1,112 @@
-# Claude CLI App Template
+# Multi-AI Project Configuration Tool
 
-A minimal template for building Python CLI apps with Typer and Claude.
+A CLI tool for managing AI provider configurations across different AI coding assistants (Claude Code, Gemini CLI, OpenAI Codex) in your projects.
 
-## Quick Start
+## Installation
 
-1. **Use this template:**
-   - Click "Use this template" on GitHub to create your new repo
-   - Clone your new repo locally
-
-2. **Start development with Claude:**
-   ```bash
-   # In Claude Code
-   /cli
-   ```
-
-The `/cli` command handles setup and provides an interactive walkthrough to scope and build your CLI application.
-
-## For Claude: Reference Documentation
-
-When developing with this template, refer to the comprehensive guides in the `docs/` directory:
-- **`docs/typer-reference.md`**: Complete Typer patterns and syntax reference
-- **`docs/typer-urls.md`**: Documentation navigation and search strategies
-- **`CLAUDE.md`**: Project context and development workflow
-
-### Adding New Documentation
-
-Use the `/docs` command to create focused reference documentation for new libraries:
+### Install from GitHub
 ```bash
-/docs https://docs.pydantic.dev    # Creates pydantic-reference.md and pydantic-urls.md
-/docs https://rich.readthedocs.io  # Creates rich-reference.md and rich-urls.md
+# Install directly from GitHub using pip
+pip install git+https://github.com/your-username/multi-ai-code-template.git
 
-# Add specific instructions for focused documentation
-/docs https://mlflow.org/docs/latest please focus on mlflow tracing
-/docs https://docs.pydantic.dev I need validators and custom field types
+# Or using uv (recommended)
+uv tool install git+https://github.com/your-username/multi-ai-code-template.git
 ```
 
-This creates Claude-friendly references following the naming convention:
-- `{library}-reference.md`: Essential concepts and code examples
-- `{library}-urls.md`: Navigation guide for official documentation
+### Local Development Installation
+```bash
+git clone https://github.com/your-username/multi-ai-code-template.git
+cd multi-ai-code-template
+uv sync
+uv run python app.py --help
+```
 
-## What's included
+## Usage
 
+The `aiproj` tool helps you manage AI provider configurations across different AI coding assistants:
+
+### Initialize AI Provider Configurations
+```bash
+# Initialize Claude Code configuration
+aiproj init --claude
+
+# Initialize multiple providers at once
+aiproj init --claude --gemini --codex
+
+# Initialize with specific components only
+aiproj init --claude --config --commands
+```
+
+### Add New Providers to Existing Project
+```bash
+# Add a new provider with content migration from existing providers
+aiproj add gemini --migrate
+
+# Add without migration (clean slate)
+aiproj add codex --no-migrate
+
+# Add specific components only
+aiproj add claude --commands --prompts
+```
+
+### List Provider Status
+```bash
+aiproj list
+```
+
+### Clean Up Provider Configurations
+```bash
+# Remove specific provider
+aiproj clean claude
+
+# Remove all providers
+aiproj clean all
+
+# Remove specific components only
+aiproj clean claude --commands --force
+```
+
+## What It Does
+
+This tool manages configuration files for different AI coding assistants in your projects:
+
+### Supported AI Providers
+
+- **Claude Code**: Creates `CLAUDE.md`, `.claude/commands/`, `agents.md`
+- **Gemini CLI**: Creates `.gemini/config`, `.gemini/commands/`, `.gemini/prompts/`
+- **OpenAI Codex**: Creates `.codex/config`, `.codex/commands/`, `.codex/prompts/`
+
+> Note: The current implementation provides a unified interface for managing these AI providers. Future versions will align more closely with each provider's native configuration format.
+
+### Key Features
+
+- **🔄 Content Migration**: Automatically migrates existing commands and prompts between providers
+- **🎯 Component Selection**: Choose which components to initialize (config, commands, prompts, agents)
+- **📊 Status Overview**: See which providers are configured and what components exist
+- **🧹 Smart Cleanup**: Remove specific providers or components safely
+- **🚀 Interactive Setup**: Prompts guide you through configuration choices
+
+### Example Workflow
+
+```bash
+# Start with Claude Code in your project
+aiproj init --claude
+
+# Later, add Gemini and migrate your existing Claude commands
+aiproj add gemini --migrate
+
+# Check status of all providers
+aiproj list
+
+# Clean up if needed
+aiproj clean codex
+```
+
+## Development
+
+Built with:
 - 🔧 **Typer**: Modern CLI framework
 - 🎨 **Rich**: Beautiful terminal output
 - ⚡ **uv**: Fast Python package management
-- 📁 **Project structure**: Organized and ready to extend
-- 🛠️ **Development tools**: Linting, formatting with Ruff
-
-Built with inspiration from [claude-databricks-app-template](https://github.com/databricks-solutions/claude-databricks-app-template).
+- 🧪 **pytest**: Comprehensive test suite
+- 🛠️ **ruff**: Code formatting and linting

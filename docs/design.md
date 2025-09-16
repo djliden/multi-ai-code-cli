@@ -91,6 +91,8 @@ AGENTS.md                # Project notes with Codex usage guidance
 └── prompts/             # Project-managed prompt templates (copy to ~/.codex/prompts/)
 ```
 
+> Limitation: Codex only loads slash commands from the global `$CODEX_HOME/prompts/`. Provide a sync helper or document how to copy/symlink `.codex/prompts/` into that directory so collaborators can activate the templates quickly.
+
 ### Core Components Architecture
 
 #### 1. CLI Interface (`src/cli/`)

@@ -86,6 +86,13 @@ This tool manages configuration files for different AI coding assistants in your
 - **🧹 Smart Cleanup**: Remove specific providers or components safely
 - **🚀 Interactive Setup**: Prompts guide you through configuration choices
 
+## Limitations
+
+- **OpenAI Codex slash commands stay global**: Codex only loads prompts from `~/.codex/prompts/`, so templates generated under `.codex/prompts/` are not picked up automatically. Copy or symlink the files when you need them active:
+  - Copy: `cp .codex/prompts/*.md ~/.codex/prompts/`
+  - Symlink: `ln -s "$PWD/.codex/prompts/code-review.md" ~/.codex/prompts/code-review.md`
+  - Automate: add a simple sync script or Git hook to keep the global directory up to date.
+
 ### Example Workflow
 
 ```bash

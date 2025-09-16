@@ -87,3 +87,10 @@ Test with pytest
 - `codex exec` for automated tasks
 - Custom prompts for repeated workflows
 - File search with `@` for quick navigation
+
+## Limitations & Workarounds
+
+- **Project templates are not auto-loaded**: Codex only reads slash commands from the global `$CODEX_HOME/prompts/` directory (typically `~/.codex/prompts/`). Project-managed templates under `.codex/prompts/` must be copied or linked manually before Codex will see them.
+  - One-off copy: `cp .codex/prompts/*.md ~/.codex/prompts/`
+  - Symlink to avoid duplication: `ln -s "$PWD/.codex/prompts/review.md" ~/.codex/prompts/review.md`
+  - Automate with a script: add a `scripts/sync-codex-prompts.sh` that rsyncs templates into the global directory and run it after updates.

@@ -74,9 +74,9 @@ This tool manages configuration files for different AI coding assistants in your
 
 - **Claude Code**: Creates `CLAUDE.md`, `.claude/commands/`, `agents.md`
 - **Gemini CLI**: Creates `.gemini/config`, `.gemini/commands/`, `.gemini/prompts/`
-- **OpenAI Codex**: Creates `.codex/config`, `.codex/commands/`, `.codex/prompts/`
+- **OpenAI Codex**: Creates `AGENTS.md` guidance and `.codex/prompts/` templates to sync with `~/.codex/prompts/`
 
-> Note: The current implementation provides a unified interface for managing these AI providers. Future versions will align more closely with each provider's native configuration format.
+> Note: Codex only loads slash-command prompts from the global `$CODEX_HOME/prompts/` directory. The generated `.codex/prompts/` files are project-managed templates that you can copy or symlink into `~/.codex/prompts/`.
 
 ### Key Features
 

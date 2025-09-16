@@ -6,7 +6,7 @@ Quick reference for OpenAI Codex CLI capabilities and syntax.
 
 **Codex CLI** - OpenAI's CLI tool for AI-assisted coding
 **AGENTS.md** - Agent configuration file
-**Custom Prompts** - Markdown files in `~/.codex/prompts/` (and possibly `.codex/prompts/`)
+**Custom Prompts** - Markdown files in `~/.codex/prompts/` (global Codex home)
 **TUI Mode** - Interactive text interface
 
 ## Basic Usage
@@ -43,7 +43,7 @@ codex -i screenshot.png "explain this UI"
 Create `.md` files in prompt directories:
 
 **Global prompts:** `~/.codex/prompts/`
-**Project prompts:** `.codex/prompts/` *(unconfirmed - may be supported)*
+**Project templates:** `.codex/prompts/` *(copy or symlink into the global folder to enable slash commands)*
 
 **Example: `~/.codex/prompts/python-debug.md`**
 ```markdown
@@ -80,7 +80,7 @@ Test with pytest
 
 **Setup:**
 1. Create AGENTS.md for project context
-2. Add custom prompts to `~/.codex/prompts/` (or `.codex/prompts/`)
+2. Add custom prompts to `~/.codex/prompts/` (copy from `.codex/prompts/` if you track them in the repo)
 3. Use interactive mode for exploration
 
 **Workflows:**

@@ -184,3 +184,5 @@ class TestCodexProvider:
 
       assert 'AGENTS.md' in files
       assert '.codex/prompts/example.md' in files
+      assert '~/.codex/prompts' in files['AGENTS.md']
+      assert 'Copy this file to `~/.codex/prompts/example.md`' in files['.codex/prompts/example.md']

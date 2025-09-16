@@ -5,7 +5,7 @@
 This is a CLI tool (`aiproj`) for managing AI provider configurations across different AI coding assistants:
 - **Claude Code**: CLAUDE.md, .claude/commands/, agents.md
 - **Gemini CLI**: .gemini/config, .gemini/commands/, .gemini/prompts/
-- **OpenAI Codex**: .codex/config, .codex/commands/, .codex/prompts/
+- **OpenAI Codex**: `~/.codex/prompts/` (global slash commands), `.codex/prompts/` (project templates)
 
 ## Tech Stack
 - **Language**: Python 3.12+

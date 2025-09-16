@@ -48,7 +48,7 @@ aiproj clean [--provider] [--component] # Remove provider configs or specific co
 - `--no-editor` - Skip editor opening
 
 #### Component Flags (per provider)
-- `--config` - Main configuration file only (CLAUDE.md, .gemini, .codex)
+- `--config` - Main configuration file only (CLAUDE.md, GEMINI.md, AGENTS.md)
 - `--commands` - Custom commands directory only
 - `--prompts` - Prompts/templates directory only
 - `--agents` - Agents configuration only
@@ -86,10 +86,9 @@ CLAUDE.md                 # Main Claude configuration
 
 #### OpenAI Codex Setup
 ```
-.codex                    # Main Codex configuration
+AGENTS.md                # Project notes with Codex usage guidance
 .codex/
-├── commands/             # Codex-specific commands
-└── prompts/              # Codex prompt templates
+└── prompts/             # Project-managed prompt templates (copy to ~/.codex/prompts/)
 ```
 
 ### Core Components Architecture

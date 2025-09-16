@@ -90,7 +90,17 @@ class CodexProvider(Provider):
         files['AGENTS.md'] = base_config.agents
       else:
         files['AGENTS.md'] = (
-          '# Project Instructions\n\nProject configured for OpenAI Codex assistance.\n'
+          '# OpenAI Codex Project Notes\n\n'
+          'Codex only loads custom prompts from the global `$CODEX_HOME/prompts/` directory '
+          '(typically `~/.codex/prompts`). '
+          'Prompts kept in this repository are templates you can copy '
+          'or symlink into that global folder when you want them available as slash commands.\n\n'
+          '## Using project prompts\n'
+          '1. Review prompts under `.codex/prompts/` in this project.\n'
+          '2. Copy or symlink any prompt into `~/.codex/prompts/`.\n'
+          '3. Restart your Codex session so the slash command list refreshes.\n\n'
+          'Tip: keep the project versions editable here, then sync updates to your '
+          'global Codex prompts.\n'
         )
 
     # Generate prompt files (Codex commands are stored as prompts)
@@ -101,7 +111,11 @@ class CodexProvider(Provider):
       else:
         # Example prompt template when no commands to migrate
         files['.codex/prompts/example.md'] = (
-          '# Example Prompt\n\nThis is an example prompt template.\n'
+          '# Example Prompt\n\n'
+          'Copy this file to `~/.codex/prompts/example.md` so Codex can load it as a slash '
+          'command.\n\n'
+          'You can safely keep editing the project version and resync it to your global Codex '
+          'prompt directory when changes are ready.\n'
         )
 
     # Generate prompt files

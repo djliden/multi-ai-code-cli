@@ -7,10 +7,10 @@ A CLI tool for managing AI provider configurations across different AI coding as
 ### Install from GitHub
 ```bash
 # Install directly from GitHub using pip
-pip install git+https://github.com/djliden/multi-ai-code-template.git
+pip install git+https://github.com/djliden/multi-ai-code-cli.git
 
 # Or using uv (recommended)
-uv tool install git+https://github.com/djliden/multi-ai-code-template.git
+uv tool install git+https://github.com/djliden/multi-ai-code-cli.git
 ```
 
 ### Local Development Installation
